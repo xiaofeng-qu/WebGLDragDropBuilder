@@ -30,7 +30,7 @@
                 var img = new Image();
                 img.src = imageSrc;
                 var ctx = canvas.getContext('2d');
-                ctx.drawImage(img, x, y);
+                ctx.drawImage(img, x - img.width/2, y -img.height/2);
             }
         </script>
     </head>
