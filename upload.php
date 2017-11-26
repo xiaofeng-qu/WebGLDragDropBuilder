@@ -50,7 +50,7 @@
                 if($errors != ''){
                     echo '<div class="contianer"><div class="jumbotron text-center alert-danger"><h1>Some errors happened</h1>';
                     echo $errors;
-                    echo '<a class="btn btn-danger" href="landing.html">Upload your texture again</a>'; 
+                    echo '<a class="btn btn-danger" href="index.html">Upload your texture again</a>'; 
                     echo '</div></div>';
                 }else{
                     for($i=0; $i<count($_FILES['texture']['name']); $i++){
