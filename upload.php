@@ -12,7 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Online Notes</title>
+        <title>WebGL Arts Maker</title>
         <!-- Bootstrap -->
         <link href="css/bootstrap.css" rel="stylesheet">
         <!-- Customized style -->
@@ -44,7 +44,7 @@
             }
         </script>
   </head>
-  <body>
+  <body onload = "InitDemo();">
       <!--Navigation Bar-->
       <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
@@ -71,9 +71,7 @@
               </div>
           </div>
       </nav>
-      
-      <body onload = "InitDemo();">
-        <div class="container" style="margin-top: 50px;">
+      <div class="container" style="margin-top: 50px;">
             <img id='crate-image'  width ="0" height ="0" style="display: none;"/>
             <?php
                 $target_dir = "uploads/";
@@ -97,17 +95,21 @@
                         for($i=0; $i<count($_FILES['texture']['name']); $i++){
                             if(file_exists($target_file[$i])){
                             unlink($target_file[$i]);
-                            } else {
+                            }
+                            move_uploaded_file($_FILES["texture"]["tmp_name"][$i], $target_file[$i]);
+                            $sql = "SELECT * FROM pictures WHERE picture_url = '$target_file[$i]'";
+                            $result = mysqli_query($link, $sql);
+                            $count = mysqli_num_rows($result);
+                            if($count == 0){
                                 $sql = "INSERT INTO pictures (user_id, picture_url) VALUES ('$user_id', '$target_file[$i]')";
                                 mysqli_query($link, $sql);
                             }
-                            move_uploaded_file($_FILES["texture"]["tmp_name"][$i], $target_file[$i]);
                         }
                     }
                 }
                 echo '<div class="container"><div class="row">';
                 echo '<div class="col-sm-12"><h1>Your textures:</h1></div>';
-                $sql = "SELECT picture_url FROM pictures WHERE user_id = '$user_id'";
+                $sql = "SELECT picture_id, picture_url FROM pictures WHERE user_id = '$user_id'";
                 $result = mysqli_query($link, $sql);
                 $rowcount = mysqli_num_rows($result);
                 if($rowcount == 0){
@@ -116,7 +118,7 @@
                 else{
                     for($i=1; $i<=$rowcount; $i++){
                         $row = mysqli_fetch_assoc($result);
-                        echo '<div class="col-sm-3"><img src="' . $row['picture_url'] . '" class="img-thumbnail" style="width:100%; height: auto;"></div>';
+                        echo '<div class="col-sm-3"><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button><img src="' . $row['picture_url'] . '" class="img-thumbnail" style="width:100%; height: auto;" id=' . $row['picture_id'] . '></div>';
                     }
                 }
                 echo "</div>";
@@ -125,6 +127,7 @@
                 </div><?php
                 echo '</div></div>';
                 ?>
+          </div>
       <!--Footer-->
       <div class="footer">
           <div class="container">
@@ -138,5 +141,6 @@
       <script src="js/bootstrap.min.js"></script>
       <script src="js/gl-matrix.js"></script>
       <script src="js/ATextureCube.js"></script>
-  </body>
+      <script src="js/mytexture.js"></script>
+</body>
 </html>
