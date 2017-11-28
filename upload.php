@@ -12,6 +12,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
         <script src="js/jquery-ui.js"></script>
+        <script src="js/gl-matrix.js"></script>
+        <script src="js/ATextureCube.js"></script>
         <!-- Optional JavaScript -->
         <script>
             function drop_handler(canvas, ev){
@@ -20,22 +22,21 @@
                 x = ev.clientX - rect.left;
                 y = ev.clientY - rect.top;
                 console.log("Photo url is: " + imageSrc + "; x postion is: " + x + "; y position is: " + y + ".");
-                dragImgToCanvas(canvas, imageSrc, x, y);
+                dragImgToCanvas(imageSrc);
             }
             function dragover_handler(ev){
                 ev.preventDefault();
                 return false;
             }
-            function dragImgToCanvas(canvas, imageSrc, x, y){
-                var img = new Image();
-                img.src = imageSrc;
-                var ctx = canvas.getContext('2d');
-                ctx.drawImage(img, x - img.width/2, y -img.height/2);
+            function dragImgToCanvas(imageSrc){
+                document.getElementById("crate-image").src = imageSrc;
+                InitDemo();
             }
         </script>
     </head>
-    <body>
+    <body onload = "InitDemo();">
         <div class="container" style="margin-top: 25px;">
+            <img id='crate-image'  width ="0" height ="0" style="display: none;"/>
             <?php
                 $target_dir = "uploads/";
                 $target_file = [];
@@ -65,26 +66,10 @@
                         echo '<div class="col-sm-3"><img src="' . $target_file[$i] . '" class="img-thumbnail" style="width:100%; height: auto;"></div>';
                     }
                     ?><div class="container" id="newpage" style="margin-top: 15px; margin-bottom: 10px; height: 500px">
-                        <canvas id="aCanvas" style="border:1px solid #000; margin-top: 15px;" ondrop="drop_handler(this, event);" ondragover="dragover_handler(event);">Your browser does not support the HTML5 canvas tag.</canvas>
+                        <canvas id="aCanvas" style="border:1px solid #000; margin-top: 15px;" width = "800" height = "500" ondrop="drop_handler(this, event);" ondragover="dragover_handler(event);">Your browser does not support the HTML5 canvas tag.</canvas>
                     </div><?php
-                    echo '</div></div>';?>
-                    <script>
-                        (function() {
-                            var canvas = document.getElementById('aCanvas');
-                            var ctx = canvas.getContext('2d');
-
-                            // resize the canvas to fill browser window dynamically
-                            window.addEventListener('resize', resizeCanvas, false);
-                            function resizeCanvas() {
-                                    canvas.width = $("#newpage").innerWidth() - 30;
-                                    canvas.height = $("#newpage").innerHeight() - 30;
-                            }
-                            resizeCanvas();
-
-                    })();
-                    </script>
-            <?php    }
-            ?>
+                    echo '</div></div>';
+                }?>
         </div>
     </body>
 </html>
