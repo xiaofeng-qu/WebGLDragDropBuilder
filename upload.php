@@ -59,10 +59,11 @@
               </div>
               <div class="navbar-collapse collapse" id="navbarCollapse">
                   <ul class="nav navbar-nav">
+                      <li><a href="prj.html">Cover</a></li>
                       <li><a href="landing.php">Uploads</a></li>
                       <li class="active"><a href="upload.php">Start designing</a></li>
-                      <li><a href="#">Help</a></li>
-                      <li><a href="#">Contact us</a></li>
+                      <li><a href="help.html">Help</a></li>
+                      <li><a href="technical.html">Technical</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="profile.php">Logged in as <b><?php echo $_SESSION['username'];?></b></a></li>
@@ -122,7 +123,7 @@
                     }
                 }
                 echo "</div>";
-                ?><div class="container" id="newpage" style="margin-top: 15px; margin-bottom: 50px; height: 500px">
+                ?><div class="container" id="newpage" style="margin-top: 15px; margin-bottom: 75px; height: 500px">
                     <canvas id="aCanvas" style="border:1px solid #000; margin-top: 15px;" width = "800" height = "500" ondrop="drop_handler(this, event);" ondragover="dragover_handler(event);">Your browser does not support the HTML5 canvas tag.</canvas>
                 </div><?php
                 echo '</div></div>';

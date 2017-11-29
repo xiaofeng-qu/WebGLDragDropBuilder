@@ -42,9 +42,10 @@
               </div>
               <div class="navbar-collapse collapse" id="navbarCollapse">
                   <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">Home</a></li>
-                      <li><a href="#">Help</a></li>
-                      <li><a href="#">Contact us</a></li>
+                      <li><a href="prj.html">Cover</a></li>
+                      <li class="active"><a href="index.php">Home</a></li>
+                      <li><a href="help.html">Help</a></li>
+                      <li><a href="technical.html">Technical</a></li>
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                       <li><a href="#loginModal" data-toggle="modal">Login</a></li>
